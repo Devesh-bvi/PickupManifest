@@ -39,12 +39,13 @@ namespace CourierTrackingService
             string ServerCredentailsUsername = string.Empty;
             string ServerCredentailsPassword = string.Empty;
             string DBConnection = string.Empty;
+            MySqlConnection con = null;
             try
             {
                 DataTable dt = new DataTable();
                 IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", true, true).Build();
                 var constr = config.GetSection("ConnectionStrings").GetSection("HomeShop").Value;
-                MySqlConnection con = new MySqlConnection(constr);
+               con = new MySqlConnection(constr);
                 MySqlCommand cmd = new MySqlCommand("SP_HSGetAllConnectionstrings", con);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Connection.Open();
@@ -74,7 +75,10 @@ namespace CourierTrackingService
             }
             finally
             {
-               
+                if (con != null)
+                {
+                    con.Close();
+                }
                 GC.Collect();
             }
 
@@ -206,12 +210,12 @@ namespace CourierTrackingService
 
         public static void UpdateGeneratePickupManifest(int orderID, int tenantID, int userID, string status, string ConString)
         {
-
+            MySqlConnection con = null;
             try
             {
                 DataTable dt = new DataTable();
-                
-                MySqlConnection con = new MySqlConnection(ConString);
+
+                con = new MySqlConnection(ConString);
                 MySqlCommand cmd = new MySqlCommand("SP_PHYUpdateflagPickupManifest", con)
                 {
                     CommandType = CommandType.StoredProcedure
@@ -231,6 +235,10 @@ namespace CourierTrackingService
             }
             finally
             {
+                if (con != null)
+                {
+                    con.Close();
+                }
                 GC.Collect();
             }
 
@@ -247,12 +255,13 @@ namespace CourierTrackingService
         /// <param name="ConString"></param>
         public static void ExLogger(int TransactionID, string BillNo, string BillDate, string StoreCode, string ErrorMessage, string ErrorDiscription, string ConString)
         {
+            MySqlConnection con = null;
             try
             {
                 DataTable dt = new DataTable();
                 IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", true, true).Build();
                 var constr = config.GetSection("ConnectionStrings").GetSection("HomeShop").Value;
-                MySqlConnection con = new MySqlConnection(ConString);
+                con = new MySqlConnection(ConString);
                 MySqlCommand cmd = new MySqlCommand("SP_PHYInsertErrorLog", con)
                 {
                     CommandType = CommandType.StoredProcedure
@@ -274,7 +283,14 @@ namespace CourierTrackingService
             {
                 
             }
-            finally { GC.Collect(); }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+                GC.Collect();
+            }
         }
 
     }
