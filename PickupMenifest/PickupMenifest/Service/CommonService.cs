@@ -7,7 +7,12 @@ namespace PickupMenifest.Service
 {
     public class CommonService
     {
-
+        /// <summary>
+        /// SendApiRequest
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="Request"></param>
+        /// <returns></returns>
         public static string SendApiRequest(string url, string Request)
         {
             string strresponse = "";
@@ -31,31 +36,7 @@ namespace PickupMenifest.Service
                 }
                 
             }
-            //catch (WebException ex)
-            //{
-            //    string message = ex.Message;
-
-            //    WebResponse errorResponse = ex.Response;
-            //    if (errorResponse != null)
-            //    {
-            //        using (Stream responseStream = errorResponse.GetResponseStream())
-            //        {
-            //            StreamReader reader = new StreamReader(responseStream, Encoding.GetEncoding("utf-8"));
-            //            message = reader.ReadToEnd();
-            //        }
-            //    }
-            //    //using (WebResponse response = e.Response)
-            //    //{
-            //    //    HttpWebResponse httpResponse = (HttpWebResponse)response;
-            //    //    Console.WriteLine("Error code: {0}", httpResponse.StatusCode);
-            //    //    using (Stream data = response.GetResponseStream())
-            //    //    using (var reader = new StreamReader(data))
-            //    //    {
-            //    //        string text = reader.ReadToEnd();
-            //    //        Console.WriteLine(text);
-            //    //    }
-            //    //}
-            //}
+            
             catch (Exception ex)
             {
                

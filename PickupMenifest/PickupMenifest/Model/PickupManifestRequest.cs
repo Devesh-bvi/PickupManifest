@@ -6,6 +6,9 @@ namespace PickupMenifest.Model
 {
     public class PickupManifestRequest
     {
+        /// <summary>
+        /// shipmentId
+        /// </summary>
         public List<int> shipmentId { get; set; }
 
     }
