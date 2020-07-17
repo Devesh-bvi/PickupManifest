@@ -153,6 +153,8 @@ namespace CourierTrackingService
                                     {
                                         
                                         UpdateGeneratePickupManifest(ID, TenantId, ID, "Pickup", ConString);
+
+                                        CommonService.SmsWhatsUpDataSend(TenantId, 0, "", ID, ClientAPIURL, "PickupScheduled", ConString);
                                     }
                                 }
                             }
@@ -175,6 +177,8 @@ namespace CourierTrackingService
                                 if (manifestResponce.status == "1" && manifestResponce.manifestUrl != null && manifestResponce.manifestUrl != "")
                                 {
                                     UpdateGeneratePickupManifest(ID, TenantId, ID, "Manifest", ConString);
+
+                                    CommonService.SmsWhatsUpDataSend(TenantId, 0, "", ID, ClientAPIURL, "ManifestGenerated", ConString);
                                 }
                                 else
                                 {
