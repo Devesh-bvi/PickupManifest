@@ -100,6 +100,7 @@ namespace CourierTrackingService
             string apiGenPickupRes = string.Empty;
             string apiGenMenifestRes = string.Empty;
             string StoreCode = string.Empty;
+            string ProgramCode = string.Empty;
 
             PickupResponce pickupResponce = new PickupResponce();
             pickupResponce.response = new response();
@@ -134,6 +135,7 @@ namespace CourierTrackingService
                         shipment_id = Convert.ToInt32(dr["CourierPartnerShipmentID"]);
                         TenantId = Convert.ToInt32(dr["TenantId"]);
                         StoreCode = Convert.ToString(dr["StoreCode"]);
+                        ProgramCode = Convert.ToString(dr["ProgramCode"]);
 
                         PickupManifestRequest pickupManifestRequest = new PickupManifestRequest()
                         {
@@ -154,7 +156,7 @@ namespace CourierTrackingService
                                         
                                         UpdateGeneratePickupManifest(ID, TenantId, ID, "Pickup", ConString);
 
-                                        CommonService.SmsWhatsUpDataSend(TenantId, 0, "", ID, ClientAPIURL, "PickupScheduled", ConString);
+                                        CommonService.SmsWhatsUpDataSend(TenantId, 0, ProgramCode, ID, ClientAPIURL, "PickupScheduled", ConString);
                                     }
                                 }
                             }
@@ -178,7 +180,7 @@ namespace CourierTrackingService
                                 {
                                     UpdateGeneratePickupManifest(ID, TenantId, ID, "Manifest", ConString);
 
-                                    CommonService.SmsWhatsUpDataSend(TenantId, 0, "", ID, ClientAPIURL, "ManifestGenerated", ConString);
+                                    CommonService.SmsWhatsUpDataSend(TenantId, 0, ProgramCode, ID, ClientAPIURL, "ManifestGenerated", ConString);
                                 }
                                 else
                                 {
